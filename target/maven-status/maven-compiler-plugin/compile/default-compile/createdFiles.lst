@@ -1,9 +1,10 @@
-com\ecogrow\model\Usuario.class
-com\ecogrow\controller\PlantaController.class
-com\ecogrow\controller\UsuarioController.class
+com\ecogrow\DatabaseUrlProcessor.class
 com\ecogrow\service\PlantaService.class
-com\ecogrow\repository\PlantaRepository.class
 com\ecogrow\repository\UsuarioRepository.class
 com\ecogrow\service\UsuarioService.class
 com\ecogrow\model\Planta.class
+com\ecogrow\model\Usuario.class
+com\ecogrow\controller\PlantaController.class
+com\ecogrow\controller\UsuarioController.class
+com\ecogrow\repository\PlantaRepository.class
 com\ecogrow\EcoGrowApplication.class

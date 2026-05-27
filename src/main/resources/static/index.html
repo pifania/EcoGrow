@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>EcoGrow</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:sans-serif;background:#f7f5f0;color:#2e3b22}
+.hidden{display:none!important}
+/* NAV */
+nav{background:#f7f5f0;border-bottom:1px solid #b5c9a4;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+nav .logo{font-size:1.3rem;font-weight:700;color:#2e3b22}
+nav .logo span{color:#7a9362;font-style:italic}
+.btn{background:#4a5e3a;color:#fff;border:none;padding:.55rem 1.3rem;cursor:pointer;font-size:.88rem}
+.btn-ghost{background:transparent;color:#4a5e3a;border:1.5px solid #4a5e3a;padding:.55rem 1.3rem;cursor:pointer;font-size:.88rem}
+.btn-sm{padding:.4rem .9rem;font-size:.78rem}
+.btn-red{background:#b94a4a}
+.btn-blue{background:#3a5e5a}
+/* HERO */
+#screen-home .hero{padding:3.5rem 2rem;max-width:580px}
+#screen-home .hero small{color:#7a9362;font-size:.73rem;text-transform:uppercase;letter-spacing:.1em}
+#screen-home .hero h1{font-size:2.3rem;margin:.5rem 0 1rem;line-height:1.12}
+#screen-home .hero h1 em{color:#7a9362}
+#screen-home .hero p{color:#4a5e3a;line-height:1.8;margin-bottom:1.4rem;font-size:.94rem}
+.hero-btns{display:flex;gap:.8rem}
+.stats{background:#2e3b22;display:grid;grid-template-columns:repeat(4,1fr);padding:2rem;text-align:center;gap:1rem}
+.stats .s-num{font-size:2rem;font-weight:900;color:#fff}
+.stats .s-lbl{font-size:.7rem;color:#b5c9a4;text-transform:uppercase;margin-top:.3rem}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#b5c9a4}
+.feat-card{background:#fff;padding:1.4rem}
+.feat-card .fi{font-size:1.4rem;margin-bottom:.7rem}
+.feat-card h3{margin-bottom:.4rem;font-size:.95rem}
+.feat-card p{font-size:.82rem;color:#888;line-height:1.6}
+.section{padding:3rem 2rem}
+.section-title small{color:#7a9362;font-size:.73rem;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:.4rem}
+.section-title h2{font-size:1.8rem;margin-bottom:2rem}
+.section-title h2 em{color:#7a9362}
+footer{background:#1a2012;padding:2.5rem 2rem;display:flex;justify-content:space-between;align-items:flex-end}
+footer .fl{color:#fff;font-size:1.3rem;font-weight:700}
+footer .fl span{color:#7a9362;font-style:italic}
+footer .fp{color:rgba(255,255,255,.3);font-size:.76rem;margin-top:.3rem}
+footer .fa{text-align:right;font-size:.8rem;color:rgba(255,255,255,.4);line-height:2}
+/* LOGIN */
+#screen-login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f7f5f0}
+.login-box{background:#fff;border:1px solid #b5c9a4;padding:2.5rem;width:100%;max-width:380px}
+.login-box .logo{text-align:center;font-size:1.5rem;font-weight:700;margin-bottom:.3rem}
+.login-box .logo span{color:#7a9362;font-style:italic}
+.login-box .sub{text-align:center;color:#888;font-size:.84rem;margin-bottom:1.8rem}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.78rem;color:#4a5e3a;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+.form-group input{width:100%;padding:.65rem 1rem;border:1px solid #b5c9a4;background:#f7f5f0;outline:none;font-size:.9rem}
+.form-group input:focus{border-color:#4a5e3a}
+.btn-full{width:100%;padding:.8rem;font-size:.95rem;font-weight:600}
+.login-links{text-align:center;margin-top:1rem;font-size:.82rem;color:#aaa}
+.login-links a{color:#7a9362;cursor:pointer;text-decoration:none}
+.error-msg{background:#fde8e8;border:1px solid #f5c6c6;color:#b94a4a;padding:.6rem 1rem;font-size:.83rem;margin-bottom:1rem;display:none}
+.tabs{display:flex;border-bottom:2px solid #b5c9a4;margin-bottom:1.5rem}
+.tab{flex:1;padding:.6rem;text-align:center;cursor:pointer;font-size:.82rem;font-weight:600;color:#888;border:none;background:transparent}
+.tab.active{color:#4a5e3a;border-bottom:2px solid #4a5e3a;margin-bottom:-2px}
+/* DASHBOARD */
+#screen-dash{min-height:100vh;background:#f7f5f0}
+#screen-dash nav{background:#2e3b22;border-bottom:none}
+#screen-dash nav .logo{color:#fff}
+#screen-dash nav .logo span{color:#7a9362}
+.dash-body{padding:2rem}
+.dash-body h2{margin-bottom:.3rem}
+.dash-body .welcome-sub{color:#7a9362;font-size:.88rem;margin-bottom:2rem}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+.metric-card{background:#fff;border:1px solid #b5c9a4;padding:1.4rem;text-align:center}
+.metric-card .mi{font-size:1.8rem;margin-bottom:.4rem}
+.metric-card .ml{font-size:.7rem;color:#aaa;text-transform:uppercase;letter-spacing:.07em}
+.metric-card .mv{font-size:1.5rem;font-weight:700;color:#2e3b22;margin-top:.2rem}
+.plantas-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.plantas-header h3{font-size:1.1rem}
+.plantas-list{display:flex;flex-direction:column;gap:.8rem}
+.planta-card{background:#fff;border:1px solid #b5c9a4;padding:1.2rem;display:flex;justify-content:space-between;align-items:center}
+.planta-info h4{margin-bottom:.2rem;font-size:.95rem}
+.planta-info p{font-size:.78rem;color:#888}
+.planta-status{display:inline-block;padding:.2rem .6rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:.4rem}
+.status-SAUDAVEL{background:#e6f4e6;color:#2e7d32}
+.status-ALERTA{background:#fff8e1;color:#f57f17}
+.status-CRITICO{background:#fde8e8;color:#b94a4a}
+.planta-actions{display:flex;gap:.5rem;flex-shrink:0}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:100;display:none}
+.modal-overlay.show{display:flex}
+.modal-box{background:#fff;padding:2rem;width:100%;max-width:400px;border:1px solid #b5c9a4}
+.modal-box h3{margin-bottom:1.5rem;font-size:1.1rem}
+.modal-actions{display:flex;gap:.8rem;margin-top:1.5rem;justify-content:flex-end}
+.toast{position:fixed;bottom:2rem;right:2rem;background:#2e3b22;color:#fff;padding:.8rem 1.4rem;font-size:.85rem;z-index:200;display:none;border-left:4px solid #7a9362}
+</style>
+</head>
+<body>
+
+<!-- ═══ HOME ═══ -->
+<div id="screen-home">
+  <nav>
+    <div class="logo">Eco<span>Grow</span></div>
+    <button class="btn" onclick="showLogin()">Começar</button>
+  </nav>
+
+  <div class="hero">
+    <small>Agricultura Urbana Inteligente</small>
+    <h1>Cultive o futuro <em>dentro</em> do seu lar.</h1>
+    <p>EcoGrow integra IoT, IA e automação para cuidar das suas plantas com precisão, eliminando o erro humano e democratizando o cultivo urbano.</p>
+    <div class="hero-btns">
+      <button class="btn" onclick="showLogin()">Ver Demo</button>
+      <button class="btn-ghost">Saiba Mais</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div><div class="s-num">500+</div><div class="s-lbl">Espécies</div></div>
+    <div><div class="s-num">98%</div><div class="s-lbl">Precisão</div></div>
+    <div><div class="s-num">3</div><div class="s-lbl">Camadas</div></div>
+    <div><div class="s-num">24/7</div><div class="s-lbl">Online</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <small>Funcionalidades</small>
+      <h2>Tecnologia para o <em>cultivo</em></h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="fi">📡</div><h3>Monitoramento</h3><p>Umidade, temperatura e luz em tempo real via IoT.</p></div>
+      <div class="feat-card"><div class="fi">💧</div><h3>Irrigação Auto</h3><p>Bombas ativadas automaticamente por limiar de espécie.</p></div>
+      <div class="feat-card"><div class="fi">🔬</div><h3>Diagnóstico IA</h3><p>Visão computacional identifica pragas pela câmera.</p></div>
+      <div class="feat-card"><div class="fi">📚</div><h3>Enciclopédia</h3><p>Base com 500+ espécies e requisitos ideais.</p></div>
+      <div class="feat-card"><div class="fi">📊</div><h3>Relatórios</h3><p>Histórico de crescimento com gráficos de saúde.</p></div>
+      <div class="feat-card"><div class="fi">🌤️</div><h3>Clima</h3><p>OpenWeather otimiza irrigação com previsão de chuva.</p></div>
+    </div>
+  </div>
+
+  <footer>
+    <div><div class="fl">Eco<span>Grow</span></div><div class="fp">UCSAL · Engenharia de Software · 2024</div></div>
+    <div class="fa">Antonio Alcantara<br/>Elton Figueiredo<br/>Osvaldo Melo</div>
+  </footer>
+</div>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="screen-login" class="hidden">
+  <div class="login-box">
+    <div class="logo">Eco<span>Grow</span></div>
+    <div class="sub">Acesse sua conta</div>
+
+    <div class="tabs">
+      <button class="tab active" id="tab-login" onclick="switchTab('login')">Entrar</button>
+      <button class="tab" id="tab-cadastro" onclick="switchTab('cadastro')">Cadastrar</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="form-login">
+      <div class="error-msg" id="login-error"></div>
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" id="login-email" placeholder="seu@email.com"/>
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="login-senha" placeholder="••••••••"/>
+      </div>
+      <button class="btn btn-full" onclick="doLogin()">Entrar</button>
+      <div class="login-links" style="margin-top:1rem">
+        <a onclick="showHome()">← Voltar</a>
+      </div>
+    </div>
+
+    <!-- CADASTRO FORM -->
+    <div id="form-cadastro" class="hidden">
+      <div class="error-msg" id="cad-error"></div>
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" id="cad-nome" placeholder="Seu nome"/>
+      </div>
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" id="cad-email" placeholder="seu@email.com"/>
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="cad-senha" placeholder="••••••••"/>
+      </div>
+      <button class="btn btn-full" onclick="doCadastro()">Criar Conta</button>
+      <div class="login-links" style="margin-top:1rem">
+        <a onclick="showHome()">← Voltar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div id="screen-dash" class="hidden">
+  <nav>
+    <div class="logo">Eco<span>Grow</span></div>
+    <div style="display:flex;align-items:center;gap:1rem">
+      <span id="dash-username" style="color:#b5c9a4;font-size:.85rem"></span>
+      <button class="btn btn-sm" onclick="doLogout()">Sair</button>
+    </div>
+  </nav>
+  <div class="dash-body">
+    <h2>Bem-vindo, <span id="dash-nome"></span>! 🌿</h2>
+    <p class="welcome-sub">Monitorando suas plantas em tempo real.</p>
+
+    <div class="metrics">
+      <div class="metric-card"><div class="mi">💧</div><div class="ml">Umidade Média</div><div class="mv" id="m-umidade">—</div></div>
+      <div class="metric-card"><div class="mi">🌡️</div><div class="ml">Temperatura Média</div><div class="mv" id="m-temp">—</div></div>
+      <div class="metric-card"><div class="mi">🌱</div><div class="ml">Total de Plantas</div><div class="mv" id="m-total">0</div></div>
+    </div>
+
+    <div class="plantas-header">
+      <h3>Minhas Plantas</h3>
+      <button class="btn btn-sm" onclick="abrirModalPlanta()">+ Nova Planta</button>
+    </div>
+    <div class="plantas-list" id="plantas-list">
+      <p style="color:#aaa;font-size:.88rem">Nenhuma planta cadastrada ainda.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODAL NOVA PLANTA ═══ -->
+<div class="modal-overlay" id="modal-planta">
+  <div class="modal-box">
+    <h3>🌱 Nova Planta</h3>
+    <div class="form-group">
+      <label>Nome da Planta</label>
+      <input type="text" id="p-nome" placeholder="Ex: Manjericão"/>
+    </div>
+    <div class="form-group">
+      <label>Espécie</label>
+      <input type="text" id="p-especie" placeholder="Ex: Ocimum basilicum"/>
+    </div>
+    <div class="form-group">
+      <label>Umidade Inicial (%)</label>
+      <input type="number" id="p-umidade" placeholder="Ex: 60" min="0" max="100"/>
+    </div>
+    <div class="form-group">
+      <label>Temperatura (°C)</label>
+      <input type="number" id="p-temp" placeholder="Ex: 23"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost btn-sm" onclick="fecharModal()">Cancelar</button>
+      <button class="btn btn-sm" onclick="salvarPlanta()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'http://localhost:8080/api';
+let usuarioLogado = null;
+
+// ── NAVEGAÇÃO ─────────────────────────────────────
+function showHome()  { hide('screen-login'); hide('screen-dash'); show('screen-home'); }
+function showLogin() { hide('screen-home');  hide('screen-dash'); show('screen-login'); }
+function showDash()  { hide('screen-home');  hide('screen-login'); show('screen-dash'); }
+
+function show(id) { document.getElementById(id).classList.remove('hidden'); }
+function hide(id) { document.getElementById(id).classList.add('hidden'); }
+
+function switchTab(tab) {
+  if (tab === 'login') {
+    show('form-login'); hide('form-cadastro');
+    document.getElementById('tab-login').classList.add('active');
+    document.getElementById('tab-cadastro').classList.remove('active');
+  } else {
+    hide('form-login'); show('form-cadastro');
+    document.getElementById('tab-cadastro').classList.add('active');
+    document.getElementById('tab-login').classList.remove('active');
+  }
+}
+
+// ── AUTH ─────────────────────────────────────────
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const senha = document.getElementById('login-senha').value.trim();
+  if (!email || !senha) return showError('login-error', 'Preencha todos os campos.');
+  try {
+    const res = await fetch(`${API}/usuarios/login`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({email, senha})
+    });
+    const data = await res.json();
+    if (!res.ok) return showError('login-error', data.erro || 'Erro ao entrar.');
+    usuarioLogado = data;
+    iniciarDash();
+  } catch(e) {
+    showError('login-error', 'Não foi possível conectar ao servidor. Verifique se o backend está rodando.');
+  }
+}
+
+async function doCadastro() {
+  const nome  = document.getElementById('cad-nome').value.trim();
+  const email = document.getElementById('cad-email').value.trim();
+  const senha = document.getElementById('cad-senha').value.trim();
+  if (!nome || !email || !senha) return showError('cad-error', 'Preencha todos os campos.');
+  try {
+    const res = await fetch(`${API}/usuarios/cadastrar`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({nome, email, senha})
+    });
+    const data = await res.json();
+    if (!res.ok) return showError('cad-error', data.erro || 'Erro ao cadastrar.');
+    showToast('Conta criada! Faça login.');
+    switchTab('login');
+  } catch(e) {
+    showError('cad-error', 'Não foi possível conectar ao servidor.');
+  }
+}
+
+function doLogout() {
+  usuarioLogado = null;
+  showHome();
+}
+
+// ── DASHBOARD ─────────────────────────────────────
+function iniciarDash() {
+  document.getElementById('dash-nome').textContent = usuarioLogado.nome;
+  document.getElementById('dash-username').textContent = usuarioLogado.email;
+  showDash();
+  carregarPlantas();
+}
+
+async function carregarPlantas() {
+  try {
+    const res = await fetch(`${API}/plantas/usuario/${usuarioLogado.id}`);
+    const plantas = await res.json();
+    renderPlantas(plantas);
+    atualizarMetricas(plantas);
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+function renderPlantas(plantas) {
+  const list = document.getElementById('plantas-list');
+  if (!plantas.length) {
+    list.innerHTML = '<p style="color:#aaa;font-size:.88rem">Nenhuma planta cadastrada ainda.</p>';
+    return;
+  }
+  list.innerHTML = plantas.map(p => `
+    <div class="planta-card">
+      <div class="planta-info">
+        <span class="planta-status status-${p.status || 'SAUDAVEL'}">${p.status || 'SAUDAVEL'}</span>
+        <h4>${p.nome}</h4>
+        <p>${p.especie || '—'} &nbsp;|&nbsp; 💧 ${p.umidade ?? '—'}% &nbsp;|&nbsp; 🌡️ ${p.temperatura ?? '—'}°C</p>
+      </div>
+      <div class="planta-actions">
+        <button class="btn btn-sm btn-blue" onclick="irrigar(${p.id})">💧 Irrigar</button>
+        <button class="btn btn-sm btn-red" onclick="deletarPlanta(${p.id})">🗑</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function atualizarMetricas(plantas) {
+  document.getElementById('m-total').textContent = plantas.length;
+  if (!plantas.length) { document.getElementById('m-umidade').textContent = '—'; document.getElementById('m-temp').textContent = '—'; return; }
+  const umMedia = (plantas.reduce((a,p) => a + (p.umidade||0), 0) / plantas.length).toFixed(1);
+  const tpMedia = (plantas.reduce((a,p) => a + (p.temperatura||0), 0) / plantas.length).toFixed(1);
+  document.getElementById('m-umidade').textContent = umMedia + '%';
+  document.getElementById('m-temp').textContent = tpMedia + '°C';
+}
+
+// ── PLANTAS ──────────────────────────────────────
+function abrirModalPlanta() { document.getElementById('modal-planta').classList.add('show'); }
+function fecharModal()       { document.getElementById('modal-planta').classList.remove('show'); }
+
+async function salvarPlanta() {
+  const nome    = document.getElementById('p-nome').value.trim();
+  const especie = document.getElementById('p-especie').value.trim();
+  const umidade = parseFloat(document.getElementById('p-umidade').value) || 60;
+  const temp    = parseFloat(document.getElementById('p-temp').value) || 22;
+  if (!nome) return alert('Informe o nome da planta.');
+  const planta = { nome, especie, umidade, temperatura: temp, luminosidade: 4000, status: 'SAUDAVEL', usuario: { id: usuarioLogado.id } };
+  try {
+    const res = await fetch(`${API}/plantas`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(planta)
+    });
+    if (res.ok) {
+      fecharModal();
+      showToast('Planta cadastrada!');
+      carregarPlantas();
+      ['p-nome','p-especie','p-umidade','p-temp'].forEach(id => document.getElementById(id).value = '');
+    }
+  } catch(e) { alert('Erro ao salvar planta.'); }
+}
+
+async function irrigar(id) {
+  try {
+    const res = await fetch(`${API}/plantas/${id}/irrigar`, { method: 'POST' });
+    if (res.ok) { showToast('Irrigação realizada!'); carregarPlantas(); }
+  } catch(e) { alert('Erro ao irrigar.'); }
+}
+
+async function deletarPlanta(id) {
+  if (!confirm('Remover esta planta?')) return;
+  try {
+    const res = await fetch(`${API}/plantas/${id}`, { method: 'DELETE' });
+    if (res.ok) { showToast('Planta removida.'); carregarPlantas(); }
+  } catch(e) { alert('Erro ao remover.'); }
+}
+
+// ── UTILITÁRIOS ──────────────────────────────────
+function showError(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg; el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 4000);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 3000);
+}
+</script>
+</body>
+</html>
